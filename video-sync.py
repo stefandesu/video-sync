@@ -61,8 +61,8 @@ def main(argv):
         folder_dest = folder.replace(source_path, destination_path)
         if not os.path.exists(folder_dest):
             os.makedirs(folder_dest)
-        os.system("rsync -rtu \""+folder+"\" \""+os.path.dirname(folder_dest)+"\"")
-        os.system("rsync -rtu \""+folder_dest+"\" \""+os.path.dirname(folder)+"\"")
+        os.system("rsync -atu \""+folder+"\" \""+os.path.dirname(folder_dest)+"\"")
+        os.system("rsync -atu \""+folder_dest+"\" \""+os.path.dirname(folder)+"\"")
 
 def find_folders(root):
     is_leaf = True
@@ -70,7 +70,7 @@ def find_folders(root):
     if os.path.isfile(root):
         return [root]
     for item in os.listdir(root):
-        if yyyy_mm_regex.match(item) != None and os.path.isdir(os.path.join(root, item)):
+        if yyyy_mm_regex.match(item) != None and os.path.isdir(os.path.join(root, item)) and not item.endswith(".fcpbundle"):
             is_leaf = False
             folders += find_folders(os.path.join(root, item))
     if is_leaf:
