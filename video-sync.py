@@ -70,7 +70,7 @@ def find_folders(root):
     if os.path.isfile(root):
         return [root]
     for item in os.listdir(root):
-        if yyyy_mm_regex.match(item) != None and os.path.isdir(os.path.join(root, item)) and not item.endswith(".fcpbundle"):
+        if yyyy_mm_regex.match(item) != None and os.path.isdir(os.path.join(root, item)) and not item.endswith(".fcpbundle") and not item.endswith(".pxd"):
             is_leaf = False
             folders += find_folders(os.path.join(root, item))
     if is_leaf:
