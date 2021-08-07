@@ -61,8 +61,9 @@ def main(argv):
         folder_dest = folder.replace(source_path, destination_path)
         if not os.path.exists(folder_dest):
             os.makedirs(folder_dest)
-        os.system("rsync -atu \""+folder+"\" \""+os.path.dirname(folder_dest)+"\"")
-        os.system("rsync -atu \""+folder_dest+"\" \""+os.path.dirname(folder)+"\"")
+        rsync_args = "-atu --exclude=\"Render Files\" --exclude=\"Transcoded Media\""
+        os.system("rsync "+rsync_args+" \""+folder+"\" \""+os.path.dirname(folder_dest)+"\"")
+        os.system("rsync "+rsync_args+" \""+folder_dest+"\" \""+os.path.dirname(folder)+"\"")
 
 def find_folders(root):
     is_leaf = True
